@@ -1,0 +1,71 @@
+﻿@using jobPortal.Models
+@model Company
+@{
+    ViewBag.Title = "Company Profile";
+    Layout = "~/Views/Shared2/_Layout.cshtml";
+
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/css/profile.css" />
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="card user-card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h2 class="card-title">Company Details</h2>
+                            <h3 class="card-text"><strong>Company Name:</strong> @Model.CompanyName</h3>
+                            <h3 class="card-text"><strong>Company Email:</strong> @Model.CompanyEmail</h3>
+                            <h3 class="card-text"><strong>Description:</strong> @Model.CompanyDescription</h3>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="text-center">
+                                <h2 class="card-title">Company Logo</h2>
+                                @if (!string.IsNullOrEmpty(@Model.PhotoPath))
+                                {
+                                    var imagePath = Url.Content($"~/images/{@Model.PhotoPath}");
+                                    <img src="@imagePath" alt="Company Logo" class="user-photo" />
+                                }
+                                else
+                                {
+                                    <p>No Photo</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-container">
+                <form asp-controller="Job" asp-action="alljobs">
+                    <div class="solved">
+                        <button class="btn">My Posted Jobs</button>
+                    </div>
+                </form>
+                <form asp-controller="LoginCompany" asp-action="DeleteConfirmation" asp-route-id="@Model.CompanyId">
+                    <div class="solved">
+                        <button class="btn">Delete Account</button>
+                    </div>
+                </form>
+                <form asp-controller="LoginCompany" asp-route-id="@Model.CompanyId" asp-action="Edit">
+                    <div class="solved">
+                        <button class="btn">Edit Account</button>
+                    </div>
+                </form>
+                <form asp-controller="LoginCompany" asp-route-id="@Model.CompanyId" asp-action="Details">
+                    <div class="solved">
+                        <button class="btn">Account Details</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
